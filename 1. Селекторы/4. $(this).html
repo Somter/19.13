@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>jQuery</title>
+    <script src="jquery-3.5.1.min.js">
+    </script>
+    <script>
+        // http://www.wisdomweb.ru/JQd/selectors.php
+        $(document).ready(function () {  // Предотвращение преждевременного выполнения кода в jQuery
+            let counter2 = 0;
+            $("#el1").click(function () {
+                if (counter2 % 2 == 0) {
+                    $(this).css("font-size", "30pt").css("font-weight", "bold");
+                    counter2++;
+                }
+                else{
+                    $(this).css("font-size", "12pt").css("font-weight", "bold");
+                    counter2++
+                }
+            })
+
+            let counter = 0;
+
+            $("#el2").dblclick(function () {
+                if (counter % 2 == 0) {
+                    $(this).css("font-size", "30pt");
+                    $(this).css("color", "red");
+                    counter++;
+                }
+                else {
+                    $(this).css("font-size", "12pt");
+                    $(this).css("color", "black");
+                    counter++;
+                }
+            });
+
+            $("#el1").mouseover(function () {
+                $(this).css("background-color", "yellow");
+                $(this).css("border", "1px solid black");
+            });
+
+            $("#el1").mouseout(function () {
+                $(this).css("background-color", "white");
+                $(this).css("border", "0px");
+            });
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <p id="el1"> Щелкните на меня один раз.</p>
+    <p id="el2"> Щелкните на меня два раза.</p>
+</body>
+
+</html>

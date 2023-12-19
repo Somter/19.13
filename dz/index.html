@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #87CEEB;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background-color: rgb(0, 128, 255);
+            padding: 3px;
+        }
+
+        h2 {
+            padding-left: 1%;
+        }
+
+        button {
+            height: 0%;
+            background-color: rgb(0, 128, 255);
+            color: black;
+            border-color: black;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        #game {
+            text-align: center; 
+            margin-top: 5%;
+        }
+
+        .game-images {
+            display: flex;
+            justify-content: center; 
+            margin-top: 20px; 
+        }
+
+        .game-images div {
+            margin: 0 10px; 
+            border: 2px solid black;
+            border-radius: 7%;
+            padding: 2%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>Game "MEMORY"</h2>
+        <button>START</button>
+    </header>
+    <div id="game">
+        <div class="game-images">
+            <div><img src="atom.png" width="100"></div>
+            <div><img src="java.png" width="100"></div>
+            <div><img src="css3-alt.png" width="100"></div>
+            <div><img src="visual-basic.png" width="100"></div>
+        </div>
+        <div class="game-images">
+            <div><img src="java.png" width="100"></div>
+            <div><img src="css3-alt.png" width="100"></div>
+            <div><img src="visual-basic.png" width="100"></div>
+            <div><img src="atom.png" width="100"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>
