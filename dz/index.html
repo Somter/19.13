@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="jquery-3.5.1.min.js">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
         body {
             background-color: #87CEEB;
@@ -65,6 +64,8 @@
             margin-top: 20px;
         }
 
+        .str-game-images div,
+        .str-game-images2 div,
         .game-images2 div,
         .game-images div {
             margin: 0 10px;
@@ -74,6 +75,8 @@
             padding: 2%;
         }
 
+        .str-game-images,
+        .str-game-images2,
         .game-images2,
         .game-images {
             display: flex;
@@ -88,6 +91,8 @@
             border-radius: 7%;
             padding: 2%;
         }
+
+      
     </style>
 </head>
 
@@ -97,6 +102,8 @@
         <button id="start-button">START</button>
         <button id="end-button">FINISH</button>
     </header>
+    <div id="you-win-message" style="display: none; text-align: center; font-size: 24px; margin-top: 50px;">You win
+    </div>
     <div id="game">
         <div class="game-images">
             <div><img src="atom.png" width="100"></div>
@@ -112,13 +119,13 @@
         </div>
     </div>
     <div id="start-game">
-        <div class="game-images">
+        <div class="str-game-images">
             <div><img src="strength.png" width="100"></div>
             <div><img src="strength.png" width="100"></div>
             <div><img src="strength.png" width="100"></div>
             <div><img src="strength.png" width="100"></div>
         </div>
-        <div class="game-images2">
+        <div class="str-game-images2">
             <div><img src="strength.png" width="100"></div>
             <div><img src="strength.png" width="100"></div>
             <div><img src="strength.png" width="100"></div>
@@ -129,8 +136,12 @@
         $(document).ready(function () {
             let newImage = ["atom.png", "java.png", "css3-alt.png", "visual-basic.png"];
             let newImage2 = ["java.png", "css3-alt.png", "visual-basic.png", "atom.png"];
-            let elem1 = -1; // Используйте -1 для отсутствия выбранного элемента
+            let arr1 = document.querySelectorAll(".str-game-images div");
+            let arr2 = document.querySelectorAll(".str-game-images2 div");
+            let elem1 = -1;
             let elem2 = -1;
+            let count = 0;
+            let totalMatches = arr1.length;
 
             $("#start-button").click(function () {
                 $("#game").fadeTo(1000, 0, function () {
@@ -140,49 +151,66 @@
 
                 $("#start-button").css("display", "none");
                 $("#end-button").css("display", "block");
-            });
 
-            $(".game-images div").click(function () {
-                $(this).fadeOut(1000, function () {
-                    let index = $(this).index();
-                    $(this).find("img").attr("src", newImage[index]);
-                    $(this).fadeIn(1000);
-                    elem1 = index;
+                $(".str-game-images div").click(function () {
+                    if (!$(this).hasClass("matched")) {
+                        $(this).fadeOut(1000, function () {
+                            let index = $(this).index();
+                            $(this).find("img").attr("src", newImage[index]);
+                            $(this).fadeIn(1000);
+                            elem1 = index;
 
-                    if (elem2 !== -1) {
-                        CheckResult();
+                            if (elem2 !== -1) {
+                                if (newImage[elem1] === newImage2[elem2]) {
+                                    $(arr1[elem1]).addClass("matched").fadeTo(3000, 0.3);
+                                    $(arr2[elem2]).addClass("matched").fadeTo(3000, 0.3);
+                                    count++;
+                                    if (count === totalMatches) {
+                                        $("#you-win-message").text("You win").show();
+                                    }
+                                } else {
+                                    $(arr2[elem2]).find("img").attr("src", "strength.png").fadeIn(3000);
+                                    $(arr1[elem1]).find("img").attr("src", "strength.png").fadeIn(3000);
+                                }
+
+                                elem1 = -1;
+                                elem2 = -1;
+                            }
+                        });
+                    }
+                });
+
+                $(".str-game-images2 div").click(function () {
+                    if (!$(this).hasClass("matched")) {
+                        $(this).fadeOut(1000, function () {
+                            let index = $(this).index();
+                            $(this).find("img").attr("src", newImage2[index]);
+                            $(this).fadeIn(1000);
+                            elem2 = index;
+
+                            if (elem1 !== -1) {
+                                if (newImage[elem1] === newImage2[elem2]) {
+                                    $(arr2[elem2]).addClass("matched").fadeTo(3000, 0.3);
+                                    $(arr1[elem1]).addClass("matched").fadeTo(1000, 0.3);
+                                    count++;
+                                    if (count === totalMatches) {
+                                        $("#you-win-message").text("You win").show();
+                                    }
+                                } else {
+                                    $(arr2[elem2]).find("img").attr("src", "strength.png").fadeIn(3000);
+                                    $(arr1[elem1]).find("img").attr("src", "strength.png").fadeIn(3000);
+                                }
+
+                                elem1 = -1;
+                                elem2 = -1;
+                            }
+                        });
                     }
                 });
             });
-
-            $(".game-images2 div").click(function () {
-                $(this).fadeOut(1000, function () {
-                    let index = $(this).index();
-                    $(this).find("img").attr("src", newImage2[index]);
-                    $(this).fadeIn(1000);
-                    elem2 = index;
-
-                    if (elem1 !== -1) {
-                        CheckResult();
-                    }
-                });
-            });
-
-            function CheckResult() {
-                if (newImage[elem1] === newImage2[elem2]) {
-                    alert("Они равны");
-                } else {
-                    alert("Они не равны");
-                }
-
-                // Сбросить выбранные элементы после проверки
-                elem1 = -1;
-                elem2 = -1;
-            }
         });
 
     </script>
-
 </body>
 
 </html>
